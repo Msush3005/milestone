@@ -1,9 +1,10 @@
 import React from 'react'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Home from "./Pages/Home"
-import Login from "./Pages/loginpage"
+import Loginpage from "./Pages/loginpage"
 import Navbar from "./Pages/Navbar"
-
+import Login from "./Components/login"
+import Signup from "./Components/signup"
 
 function App() {
   return (
@@ -18,4 +19,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
