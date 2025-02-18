@@ -1,19 +1,33 @@
-import React from 'react'
-import Login from '../Components/login'
-import Signup from '../Components/signup'
+import React, { useState } from "react";
+import Login from "../components/loginpage"
+import Signup from '../components/signuppage'
 
 
 function Loginpage() {
-  const [sign,setsign]=useState(true)
-  const handleClick=()=>{
-    setsign(!sign)
-    console.log(sign)
-  }
+   const [sign,setSign]= useState(true)
+    const handleClick=()=>{
+        setSign(!sign)
+        console.log(sign)
+    }
+
+
+ 
   return (
     <div>
-        {sign? <Login x={handleClick}/>:<Signup x={handleClick}/>}
+         {sign?<Login x={handleClick}/>: <Signup x={handleClick}/>}
+         
     </div>
-  )
+    
+    
+  );
 }
 
+
+
+
+
+
 export default Loginpage;
+
+
+
