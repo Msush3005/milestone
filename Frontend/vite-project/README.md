@@ -182,6 +182,35 @@ We will create APIs for managing products, including adding, updating, deleting,
 ### 3. Cart and Order Management
 We will implement APIs for managing the cart and orders, allowing users to add products to their cart and place orders.
 
+
+# Milestone 8: Creating and Displaying Card Components
+Welcome to Milestone 8!  In this milestone, you’ll learn how to create a card component and display multiple cards on the products page. This will help you showcase products effectively and improve the user experience of your e-commerce app.
+
+Learning Goals 
+By the end of this milestone, you will:
+
+Learn how to create a card component.
+
+Learn how to display those cards on the products page.
+
+Why Create Card Components?
+Showcase Products Effectively: Presents product details in a clear and visually appealing way.
+
+Reusable Design: Can be used across multiple pages or sections of the app.
+
+Improved User Experience: Makes it easy for users to browse and interact with products.
+
+Organized Layout: Keeps the homepage clean and structured.
+
+How to Display a Single Card for Multiple Products?
+Create a Dynamic Component: Design a single card component that accepts product details as props.
+
+Use Mapping: Use array mapping to iterate over the product list and render a card for each product.
+
+Pass Data Dynamically: Pass unique product information (e.g., name, price, image) to each card.
+
+Maintain Consistency: Ensure the layout remains uniform for all products.
+
 ### 9. CREATE PRODUCTCOMPONENT
 
 
