@@ -148,3 +148,4 @@ const productSchema = new mongoose.Schema({ name: { type: String, required: true
 ## **Conclusion**
 This e-commerce project follows a structured milestone-based approach, ensuring a **scalable, secure, and fully functional** web application.
 
+## Milestone 11: Shopping Cart Functionality
