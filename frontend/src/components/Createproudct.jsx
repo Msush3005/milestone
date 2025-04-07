@@ -7,9 +7,10 @@ function CreateProduct() {
 
     const location = useLocation();
     const productData =location.state || {}
+    
     const { _id, email, name, description, category, tags, price, stock, images, edit } = productData
 
-    
+    console.log(images)
     
     let prevImg = []
     if (images) {
@@ -32,18 +33,17 @@ function CreateProduct() {
 
     useEffect(()=>{
         setFormData({
-            ...formData,
-            email,
-            name,
-            description,
-            category,
-            tags,
-            price,
-            stock,
-            images,
-            previewImg:prevImg
-        })
-    },[productData])
+            email: email || "",
+            name: name || "",
+            description: description || "",
+            category: category || "",
+            tags: tags || [],
+            price: price || "",
+            stock: stock || "",
+            images: images || [],
+            previewImg: prevImg || []
+        });
+    }, [email, name, description, category, tags, price, stock, images]);
    
 
     const handleDeletePrevImg =(index)=>{
@@ -81,7 +81,7 @@ function CreateProduct() {
     };
 
     const handleSubmit = async (e) => {
-      
+        e.preventDefault()
         console.log("jjjj")
         const { email, name, description, category, tags, price, stock, images } = formData;
 
@@ -93,7 +93,7 @@ function CreateProduct() {
         console.log({
             email, name, description, category, tags, price, stock, images
         }, "form data");
-
+        
         const multiPartFormData = new FormData;
         multiPartFormData.append("name", name);
         multiPartFormData.append("description", description);
@@ -110,7 +110,7 @@ function CreateProduct() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8975/product/createProduct", multiPartFormData, {
+            const response = await axios.post("http://localhost:8080/product/create-product", multiPartFormData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 },
@@ -125,15 +125,35 @@ function CreateProduct() {
 
         catch (error) {
             console.log("Error", error)
-            alert("Product is Not Created")
+            // alert("Product is Not Created")
         }
 
     };
 
 
-    const handleEdit = (e) => {
-      
-        console.log(formData)
+    const handleEdit = async(e) => {
+        e.preventDefault()
+        const { email, name, description, category, tags, price, stock, images } = formData;
+        const multiPartFormData = new FormData;
+        multiPartFormData.append("name", name);
+        multiPartFormData.append("description", description);
+        multiPartFormData.append("category", category);
+        multiPartFormData.append("tags", tags);
+        multiPartFormData.append("price", price);
+        multiPartFormData.append("stock", stock);
+        multiPartFormData.append("email", email);
+        if (Array.isArray(images)) {
+            images.forEach(image => {
+                multiPartFormData.append("images", image)
+            });
+        }
+        try {
+            const response =await axios.put(`http://localhost:8080/product/update/${_id}`,multiPartFormData)
+            console.log(response)
+        } catch (error) {
+            console.log(error) 
+        }
+       
     }
 
 
@@ -145,7 +165,7 @@ function CreateProduct() {
         <div className='flex justify-center items-center min-h-screen bg-cover bg-center' style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?office,technology')" }}>
             <div className='w-full max-w-lg bg-white p-6 rounded-lg shadow-lg backdrop-blur-md bg-opacity-90'>
                 <h2 className='text-2xl font-bold text-gray-800 mb-6 text-center'>Create a New Product</h2>
-                
+                {console.log(formData)}
                 <form  className='space-y-4'>
                     <div>
                         <label className='block font-medium text-gray-700'>Email</label>
@@ -165,7 +185,7 @@ function CreateProduct() {
                     <div>
                         <label className='block font-medium text-gray-700'>Category</label>
                         <select className='border p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500' name="category" onChange={handleChange} required>
-                            <option value="">{formData.category ? formData.category : "Choose a category"}</option>
+                            <option value="">Choose a category</option>
                             {categoryArr.map((ele, index) => (
                                 <option key={index} value={ele}>{ele}</option>
                             ))}
@@ -206,7 +226,7 @@ function CreateProduct() {
                             
                         ))}
                     </div>
-
+                   
                     {edit ? <button onClick={handleEdit} className='w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition'>
                         edit
                     </button> : <button  onClick={handleSubmit} className='w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition'>
